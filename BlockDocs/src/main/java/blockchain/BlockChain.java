@@ -1,13 +1,7 @@
 package blockchain;
 
-import lombok.Getter;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
-
-@Getter
 public class BlockChain {
     public static final String AUTHOR_ROOT = "root";
 
@@ -52,6 +46,10 @@ public class BlockChain {
 
     public void addTransaction(Transaction transaction) {
         pendingTransactions.add(transaction);
+    }
+
+    public List<Block> getChain() {
+        return Collections.unmodifiableList(this.chain);
     }
 
     private Block createGenesisBlock() {
