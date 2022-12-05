@@ -3,7 +3,6 @@ package blockchain;
 import java.util.*;
 
 public class BlockChain {
-    public static final String AUTHOR_ROOT = "root";
 
     private List<Block> chain = new ArrayList<>();
     private List<Transaction> pendingTransactions = new ArrayList<>();
@@ -21,12 +20,6 @@ public class BlockChain {
     }
 
     public void minePendingTransactions(String author) {
-        Transaction rewardTx = RewardTransaction.builder()
-                .author(author)
-                .build();
-
-        pendingTransactions.add(rewardTx);
-
         Block block = new Block(System.currentTimeMillis(), pendingTransactions, getLastBlock().getHash());
         block.mineBlock(difficulty);
         chain.add(block);
@@ -50,6 +43,13 @@ public class BlockChain {
 
     public List<Block> getChain() {
         return Collections.unmodifiableList(this.chain);
+    }
+
+    public int numOfTransactions() {
+        int size = 0;
+        for (Block block : chain)
+            size += block.getTransactions().size();
+        return size;
     }
 
     private Block createGenesisBlock() {
