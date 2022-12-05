@@ -2,22 +2,23 @@ package blockchain;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Getter
 public class BlockChain {
     public static final String AUTHOR_ROOT = "root";
 
-    private List<Block> chain;
-    private List<Transaction> pendingTransactions;
+    private List<Block> chain = new ArrayList<>();
+    private List<Transaction> pendingTransactions = new ArrayList<>();
     private final int difficulty;
-    private final int miningReward;
+    private final String uuid = UUID.randomUUID().toString();
 
-    public BlockChain(int difficulty, int miningReward) {
+    public BlockChain(int difficulty) {
         this.chain.add(createGenesisBlock());
         this.difficulty = difficulty;
-        this.miningReward = miningReward;
     }
 
     public Block getLastBlock() throws NoSuchElementException {

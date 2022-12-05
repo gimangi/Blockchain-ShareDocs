@@ -44,7 +44,7 @@ public class Block {
 
         while (!hash.substring(0, difficulty).equals(target)) {
             nonce++;
-            hash = getHash();
+            hash = calculateHash();
         }
         System.out.println("[채굴 성공] hash :" + hash);
     }

@@ -7,6 +7,7 @@ import lombok.Getter;
 public class InsertTransaction extends Transaction {
     private InsertCommands command;
     private int line;
+    private String input;
 
 
     @Override
@@ -19,9 +20,10 @@ public class InsertTransaction extends Transaction {
     }
 
     @Builder
-    public InsertTransaction(String author, InsertCommands command, int line) {
+    public InsertTransaction(String author, InsertCommands command, int line, String input) {
         super(author);
         this.command = command;
         this.line = line;
+        this.input = input;
     }
 }
