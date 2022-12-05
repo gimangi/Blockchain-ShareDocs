@@ -11,18 +11,21 @@ public class DocsViewer {
 
     public DocsViewer(BlockChain blockChain) {
         this.blockChain = blockChain;
-        init();
     }
 
     public String getView() {
+        init();
         StringBuilder sb = new StringBuilder();
-        for (String line : lines) {
-            sb.append(line + "\n");
+        for (int i = 0; i < lines.size(); i++) {
+            sb.append("[" + i + "]\t" + lines.get(i) + "\n");
         }
         return sb.toString();
     }
 
     private void init() {
+        lines.clear();
+        System.out.println(blockChain.getChain().size());
+
         for (Block block : blockChain.getChain()) {
             for (Transaction t : block.getTransactions()) {
                 if (t instanceof InsertTransaction) {

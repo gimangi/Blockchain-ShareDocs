@@ -7,16 +7,18 @@ public class Docs {
     private final BlockChain blockChain;
     private final String author;
     private final DocsEditor docsEditor;
+    private final DocsViewer docsViewer;
 
     public Docs(int difficulty, String author) {
         this.difficulty = difficulty;
         this.author = author;
         this.blockChain = new BlockChain(difficulty);
         this.docsEditor = new DocsEditor(blockChain, author);
+        this.docsViewer = new DocsViewer(blockChain);
     }
 
     public void appendLast(String input) {
-        docsEditor.appendLine(blockChain.numOfTransactions(), input);
+        docsEditor.appendLine(blockChain.totalTransactions(), input);
     }
 
     public void append(int line, String input) {
@@ -39,9 +41,9 @@ public class Docs {
      * @return 문서 열람 결과
      */
     public String view() {
-        blockChain.minePendingTransactions(author);
-        DocsViewer viewer = new DocsViewer(blockChain);
-        return viewer.getView();
+        if (blockChain.pendingTransactionSize() > 0)
+            blockChain.minePendingTransactions(author);
+        return docsViewer.getView();
     }
 
     public BlockChain getBlockChain() {
@@ -49,7 +51,7 @@ public class Docs {
     }
 
     private void validateLine(int line) throws IllegalArgumentException {
-        if (line < 0 || line > blockChain.numOfTransactions())
+        if (line < 0 || line > blockChain.totalTransactions())
             throw new IllegalArgumentException("불가능한 라인 위치입니다.");
     }
 }

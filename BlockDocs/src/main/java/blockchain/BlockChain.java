@@ -20,7 +20,14 @@ public class BlockChain {
     }
 
     public void minePendingTransactions(String author) {
-        Block block = new Block(System.currentTimeMillis(), pendingTransactions, getLastBlock().getHash());
+        RewardTransaction rewardTx = RewardTransaction
+                .builder()
+                .author(author)
+                .build();
+
+        pendingTransactions.add(rewardTx);
+
+        Block block = new Block(System.currentTimeMillis(), new ArrayList<>(pendingTransactions), getLastBlock().getHash());
         block.mineBlock(difficulty);
         chain.add(block);
 
@@ -45,11 +52,15 @@ public class BlockChain {
         return Collections.unmodifiableList(this.chain);
     }
 
-    public int numOfTransactions() {
+    public int totalTransactions() {
         int size = 0;
         for (Block block : chain)
             size += block.getTransactions().size();
         return size;
+    }
+
+    public int pendingTransactionSize() {
+        return pendingTransactions.size();
     }
 
     private Block createGenesisBlock() {

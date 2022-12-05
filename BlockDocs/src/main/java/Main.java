@@ -21,7 +21,7 @@ public class Main {
         while (true) {
             int command;
             System.out.println("원하는 명령을 선택해주세요.");
-            System.out.println("1: 문서 편집\t2: 문서 열람 (자동으로 채굴이 진행됩니다)\t3: 블록체인 검증 결과\t4: 종료");
+            System.out.println("1: 문서 편집\t2: 문서 열람 (수정사항이 있으면 채굴이 진행됩니다.)\t3: 블록체인 검증 결과\t4: 종료");
             command = enterNumber();
 
             switch (command) {
