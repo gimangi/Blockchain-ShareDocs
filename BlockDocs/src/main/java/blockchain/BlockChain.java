@@ -36,9 +36,9 @@ public class BlockChain {
 
     public boolean isChainValid() {
         for (int i = 1; i < chain.size(); i++) {
-            if (chain.get(i - 1).getHash() != chain.get(i).getPreviousHash())
+            if (!chain.get(i - 1).getHash().equals(chain.get(i).getPreviousHash()))
                 return false;
-            if (chain.get(i).getHash() != chain.get(i).calculateHash())
+            if (!chain.get(i).getHash().equals(chain.get(i).calculateHash()))
                 return false;
         }
         return true;
