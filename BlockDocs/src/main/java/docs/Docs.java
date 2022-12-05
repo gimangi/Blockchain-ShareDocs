@@ -18,7 +18,7 @@ public class Docs {
     }
 
     public void appendLast(String input) {
-        docsEditor.appendLine(blockChain.totalTransactions(), input);
+        docsEditor.appendLine(blockChain.totalLines(), input);
     }
 
     public void append(int line, String input) {
@@ -51,7 +51,7 @@ public class Docs {
     }
 
     private void validateLine(int line) throws IllegalArgumentException {
-        if (line < 0 || line > blockChain.totalTransactions())
+        if (line < 0 || line > blockChain.totalLines())
             throw new IllegalArgumentException("불가능한 라인 위치입니다.");
     }
 }

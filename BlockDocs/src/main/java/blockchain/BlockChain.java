@@ -52,11 +52,25 @@ public class BlockChain {
         return Collections.unmodifiableList(this.chain);
     }
 
-    public int totalTransactions() {
-        int size = 0;
-        for (Block block : chain)
-            size += block.getTransactions().size();
-        return size;
+    public int totalLines() {
+        int lines = 0;
+        for (Block block : chain) {
+            for (Transaction t : block.getTransactions()) {
+                lines += getCountLine(t);
+            }
+        }
+        for (Transaction t : pendingTransactions)
+            lines += getCountLine(t);
+
+        return lines;
+    }
+
+    private static int getCountLine(Transaction transaction) {
+        if (transaction instanceof InsertTransaction)
+            return 1;
+        if (transaction instanceof DeleteTransaction)
+            return -1;
+        return 0;
     }
 
     public int pendingTransactionSize() {
